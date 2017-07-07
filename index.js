@@ -35,7 +35,7 @@ function sendError(action, store, next, result, status) {
   }
 
   if (action.autoDispatchPrefix) {
-    next({ type: `${action.autoPrefix}_ERROR`, error: result });
+    next({ type: `${action.autoDispatchPrefix}_ERROR`, error: result });
   }
 }
 
@@ -96,10 +96,11 @@ const fetchMiddleware = store => next => (action) => {
       if (!response.body.error) {
         result.error = 'UnknownError';
       }
-      sendError(action.onError, store, next, result, response.status);
+      console.log(response);
+      sendError(action, store, next, result, response.status);
     }
   }, (response) => {
-    sendError(action.onError, store, next, response.body, response.status);
+    sendError(action, store, next, response.body, response.status);
   });
   return null;
 };
