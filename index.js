@@ -67,7 +67,7 @@ const fetchMiddleware = store => next => (action) => {
     next({ type: `${action.autoDispatchPrefix}_REQUEST` });
   }
 
-  const baseUrl = action.base || config.base;
+  const baseUrl = typeof action.base === 'string' ? action.base : config.base;
   const params = request.params ? `?${serialize(request.params)}` : '';
   const { headers, body, method, mode } = request;
   fetch(`${baseUrl}${request.url}${params}`, {
