@@ -78,7 +78,7 @@ const fetchMiddleware = store => next => action => {
   fetch(`${baseUrl}${request.url}${params}`, {
     method,
     headers,
-    body: JSON.stringify(body),
+    body: body instanceof FormData ? body : JSON.stringify(body),
     mode
   })
     .then(response => {
